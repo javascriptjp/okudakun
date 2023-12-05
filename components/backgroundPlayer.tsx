@@ -9,8 +9,13 @@ const BackgroundPlayer = (props: { videoId: string }) => {
         style={{
             position: "fixed",
             zIndex: "-2",
-            width: "100vw",
+            width: "177.77777778vh",
             height: "100vh",
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            margin: 'auto',
             filter: "brightness(50%) blur(3px)"
         }}
     />
