@@ -1,14 +1,14 @@
-import Document, { Html, Head, Main, NextScript, DocumentProps, DocumentContext } from "next/document"
+import _Document, { Html, Head, Main, NextScript, DocumentProps as _DocumentProps, DocumentContext } from "next/document"
 import { AppType } from "next/app"
-import { OkudakunAppProps } from "./_app"
+import { AppProps } from "./_app"
 import createEmotionCache from "@/theme/createEmotionCache"
 import createEmotionServer from "@emotion/server/create-instance"
 
-interface OkudakunDocumentProps extends DocumentProps {
+interface DocumentProps extends _DocumentProps {
     emotionStyleTags: JSX.Element[]
 }
 
-const OkudakunDocument = ({ emotionStyleTags }: OkudakunDocumentProps) => {
+const Document = ({ emotionStyleTags }: DocumentProps) => {
     return (
         <Html lang="en">
             <Head>
@@ -16,7 +16,7 @@ const OkudakunDocument = ({ emotionStyleTags }: OkudakunDocumentProps) => {
                 <meta name="emotion-insertion-point" content="" />
                 {emotionStyleTags}
             </Head>
-            <body style={{userSelect: "none"}}>
+            <body style={{ userSelect: "none" }}>
                 <Main />
                 <NextScript />
             </body>
@@ -24,20 +24,17 @@ const OkudakunDocument = ({ emotionStyleTags }: OkudakunDocumentProps) => {
     )
 }
 
-OkudakunDocument.getInitialProps = async (ctx: DocumentContext) => {
+Document.getInitialProps = async (ctx: DocumentContext) => {
     const originalRenderPage = ctx.renderPage
     const cache = createEmotionCache()
     const { extractCriticalToChunks } = createEmotionServer(cache)
     ctx.renderPage = () =>
         originalRenderPage({
             enhanceApp: (
-                App: React.ComponentType<React.ComponentProps<AppType> & OkudakunAppProps>
-            ) =>
-                function EnhanceApp(props) {
-                    return <App emotionCache={cache} {...props} />
-                },
+                App: React.ComponentType<React.ComponentProps<AppType> & AppProps>
+            ) => (props) => <App emotionCache={cache} {...props} />,
         })
-    const initialProps = await Document.getInitialProps(ctx)
+    const initialProps = await _Document.getInitialProps(ctx)
     const emotionStyles = extractCriticalToChunks(initialProps.html)
     const emotionStyleTags = emotionStyles.styles.map((style) => (
         <style
@@ -52,4 +49,4 @@ OkudakunDocument.getInitialProps = async (ctx: DocumentContext) => {
     }
 }
 
-export default OkudakunDocument
+export default Document

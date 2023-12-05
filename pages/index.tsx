@@ -12,7 +12,7 @@ const infoStyle = {
     bottom: "0",
     right: "10px"
 }
-const Okudakun: NextPage = () => {
+const Index: NextPage = () => {
     return <>
         <BackgroundPlayer videoId='ttGR2B3cZaY' />
         <Box sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center" }} >
@@ -45,4 +45,4 @@ const Okudakun: NextPage = () => {
     </>
 }
 
-export default Okudakun
+export default Index
