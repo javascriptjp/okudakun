@@ -2,16 +2,13 @@ import { NextPage } from 'next'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import { Icon } from '@iconify/react';
+import { Icon } from '@iconify/react'
 import { basePath } from "@/next.config"
 import BackgroundPlayer from '@/components/backgroundPlayer'
 import IconLink from '@/components/iconLink'
+import CreaterLink from '@/components/createrLink'
 const BASE_PATH = basePath ? basePath : ""
-const infoStyle = {
-    position: "fixed",
-    bottom: "0",
-    right: "10px"
-}
+
 const Index: NextPage = () => {
     return <>
         <BackgroundPlayer videoId='ttGR2B3cZaY' />
@@ -38,10 +35,7 @@ const Index: NextPage = () => {
                 </Box>
             </Box>
         </Box>
-        <Typography sx={infoStyle}>
-            This site is a fan-made work
-            <IconLink url="https://github.com/javascriptjp" icon={<Icon icon="mdi:github" height="1.5em" />} />
-        </Typography>
+        <CreaterLink />
     </>
 }
 
